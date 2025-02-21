@@ -157,6 +157,7 @@ function Coin() {
       refetchInterval: 5000,
     }
   );
+  console.log("tickersData : ", tickersData);
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
@@ -166,6 +167,7 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <Link to={"/"}>Home &larr;</Link>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -211,7 +213,7 @@ function Coin() {
 
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price quotes={tickersData?.quotes} />
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId} />

@@ -23,6 +23,13 @@ function Chart({ coinId }: ChartProps) {
       refetchInterval: 1000000,
     }
   );
+  const exceptData = data ?? [];
+  const chartData = exceptData?.map((price) => {
+    return {
+      x: price.time_close,
+      y: [price.open, price.high, price.low, price.close],
+    };
+  });
   return (
     <div>
       {isLoading ? (
@@ -32,8 +39,7 @@ function Chart({ coinId }: ChartProps) {
           type="line"
           series={[
             {
-              name: "Price",
-              data: data?.map((price) => price.close) as number[],
+              data: chartData,
             },
           ]}
           options={{
